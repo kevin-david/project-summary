@@ -136,6 +136,13 @@ async function parseResponse(response: any): Promise<IssueInfo[]> {
       if (!!card.node.content && card.node.content.state != 'CLOSED') {
 
         console.log(`Processing card: ${card.node.content.url} | ${card.node.content.title}`);
+        if (!card.node.content.url)
+        {
+          console.log("Found a weird card, skipping...");
+          console.log(JSON.stringify(card.node));
+
+          return;
+        }
 
         var issue: IssueInfo = {
           title: card.node.content.title,
