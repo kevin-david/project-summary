@@ -3626,7 +3626,8 @@ function getProjectInfo(projectUrl) {
         // Org url will be in the format: https://github.com/orgs/github/projects/910
         const orgLogin = splitUrl[4];
         console.log(`This project is configured at the org level. Org Login:${orgLogin}, project #${projectNumber}`);
-        return { projectType: 'org',
+        return {
+            projectType: 'org',
             projectOwner: orgLogin,
             projectNumber: projectNumber
         };
@@ -3637,9 +3638,11 @@ function getProjectInfo(projectUrl) {
         const repoName = splitUrl[4];
         const nwo = `${repoOwner}/${repoName}`;
         console.log(`This project is configured at the repo level. Repo Owner:${repoOwner}, repo name:${repoName} project #${projectNumber}`);
-        return { projectType: 'repo',
+        return {
+            projectType: 'repo',
             projectOwner: nwo,
-            projectNumber: projectNumber };
+            projectNumber: projectNumber
+        };
     }
 }
 function getOpenIssuesInProject(projectInfo, octokit) {
@@ -3720,18 +3723,21 @@ function parseResponse(response) {
                         assignees: [],
                         labels: []
                     };
-                    // check assignees                
+                    // check assignees
                     card.node.content.assignees.nodes.forEach(function (assigneeNode) {
                         if (assigneeNode != null) {
                             issue.assignees.push(assigneeNode.login);
                         }
                     });
                     //check labels
-                    card.node.content.labels.nodes.forEach(function (lableNode) {
-                        if (lableNode != null) {
-                            issue.labels.push(lableNode.name);
-                        }
-                    });
+                    const labelsNodes = card.node.content.labels.nodes;
+                    if (labelsNodes) {
+                        labelsNodes.forEach(function (lableNode) {
+                            if (lableNode != null) {
+                                issue.labels.push(lableNode.name);
+                            }
+                        });
+                    }
                     issues.push(issue);
                 }
             });
