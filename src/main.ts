@@ -4,13 +4,6 @@ import * as projectSummary from './project-summary';
 
 async function main(): Promise<void> {
     try {
-        const interestingLabels = core.getInput('interestingLabels');
-        let splitInterestingLabels = [];
-        if (interestingLabels)
-        {
-            splitInterestingLabels = interestingLabels.split(",");
-        }
-
         await projectSummary.run({
           projectUrl: core.getInput('project-url'),
           title: core.getInput('title'),
