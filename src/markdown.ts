@@ -5,9 +5,11 @@ export function* generateSummary(title: string, url: string) {
     yield `\n`;
 }
 
-export function* generateIssuesSection(title: string, issues: IssueInfo[]) {
+export function* generateIssuesSection(title: string, issues: IssueInfo[], interestingLabels: string[], uninterestingLabels: string[]) {
     yield h2(title);
     yield h2(`Total Issue Count = ${issues.length}\n`);
+    yield h2(`Except {uninterestingLabels.join(", ")}: ${issues.filter(i => i.labels.filter(il => uninterestingLabels.find(uil => uil == il) !== undefined)).length}\n`);
+    // TODO: interestingLabels
     yield '| Issue | Assignees | Labels | Last Updated | Repository |';
     yield '|---|---|---|---|---|';
     for (const issue of issues) {

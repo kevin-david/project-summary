@@ -11,7 +11,9 @@ export async function run(inputs: {
     projectUrl: string,
     title: string,
     outputPath: string,
-    token: string
+    token: string,
+    interestingLabels: string[],
+    uninterestingLabels: string[]
 }) {
     const projectInfo: ProjectInfo = getProjectInfo(inputs.projectUrl);
 
@@ -25,7 +27,7 @@ export async function run(inputs: {
       const issues: IssueInfo[] = await parseResponse(response);
 
       console.log('Generating the report Markdown ...');
-      const report = generateMarkdownReport(inputs.title, inputs.projectUrl, issues);
+      const report = generateMarkdownReport(inputs.title, inputs.projectUrl, issues, inputs.interestingLabels, inputs.uninterestingLabels);
 
       console.log(`Writing the Markdown to ${inputs.outputPath} ...`);
       fs.writeFileSync(inputs.outputPath, report, 'utf8');
@@ -162,10 +164,10 @@ async function parseResponse(response: any) : Promise<IssueInfo[]> {
     return issues;
 }
 
-function generateMarkdownReport(title: string, projectUrl: string, issues: IssueInfo[]) {
+function generateMarkdownReport(title: string, projectUrl: string, issues: IssueInfo[], interestingLabels: string[], uninterestingLabels: string[]) {
     return Array.from(iterable.chain(
        markdown.generateSummary(title, projectUrl),
-       markdown.generateIssuesSection("Open issues", issues))
+       markdown.generateIssuesSection("Open issues", issues, interestingLabels, uninterestingLabels))
     ).join('\n');
 }
                 
