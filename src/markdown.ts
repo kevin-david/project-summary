@@ -8,7 +8,7 @@ export function* generateSummary(title: string, url: string) {
 export function* generateIssuesSection(title: string, issues: IssueInfo[], interestingLabels: string[], uninterestingLabels: string[]) {
     yield h2(title);
     yield h2(`Total Issue Count = ${issues.length}\n`);
-    yield h2(`Except {uninterestingLabels.join(", ")}: ${issues.filter(i => i.labels.filter(il => uninterestingLabels.find(uil => uil == il) !== undefined)).length}\n`);
+    yield h2(`Except ${uninterestingLabels.join(", ")}: ${issues.filter(i => i.labels.find(il => uninterestingLabels.find(uil => il === uil) !== undefined)).length}\n`);
     // TODO: interestingLabels
     yield '| Issue | Assignees | Labels | Last Updated | Repository |';
     yield '|---|---|---|---|---|';
