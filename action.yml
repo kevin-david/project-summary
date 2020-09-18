@@ -17,6 +17,12 @@ inputs:
   outputPath:
     description: 'relative path from the repo root to write the report file'
     required: true
+  uninterestingLabels:
+    description: 'Generate an aggregate count that excludes these labels'
+    required: false
+  interestingLabels:
+    description: 'Generate a count row for each of these labels'
+    required: false
 runs:
   using: 'node12'
   main: 'dist/index.js'
