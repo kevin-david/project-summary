@@ -3713,7 +3713,7 @@ function parseResponse(response) {
             columnNode.cards.edges.forEach(function (card) {
                 // card level
                 if (card.node.content != null && card.node.content.state != 'CLOSED') {
-                    console.log(`Processing card: {content.url}`);
+                    console.log(`Processing card: ${card.node.content.url} / /${card.node.content.title}`);
                     var issue = {
                         title: card.node.content.title,
                         url: card.node.content.url,
