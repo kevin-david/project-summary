@@ -3727,7 +3727,7 @@ function parseResponse(response) {
                     // check assignees
                     const assigneesNodes = card.node.content.assignees.nodes;
                     if (assigneesNodes) {
-                        assigneesNodes.nodes.forEach(function (assigneeNode) {
+                        assigneesNodes.forEach(function (assigneeNode) {
                             if (assigneeNode != null) {
                                 issue.assignees.push(assigneeNode.login);
                             }

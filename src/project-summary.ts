@@ -151,7 +151,7 @@ async function parseResponse(response: any): Promise<IssueInfo[]> {
         // check assignees
         const assigneesNodes = card.node.content.assignees.nodes;
         if (assigneesNodes) {
-          assigneesNodes.nodes.forEach(function (assigneeNode: any) {
+          assigneesNodes.forEach(function (assigneeNode: any) {
             if (assigneeNode != null) {
               issue.assignees.push(assigneeNode.login);
             }
