@@ -3724,11 +3724,14 @@ function parseResponse(response) {
                         labels: []
                     };
                     // check assignees
-                    card.node.content.assignees.nodes.forEach(function (assigneeNode) {
-                        if (assigneeNode != null) {
-                            issue.assignees.push(assigneeNode.login);
-                        }
-                    });
+                    const assigneesNodes = card.node.content.assignees.nodes;
+                    if (assigneesNodes) {
+                        assigneesNodes.nodes.forEach(function (assigneeNode) {
+                            if (assigneeNode != null) {
+                                issue.assignees.push(assigneeNode.login);
+                            }
+                        });
+                    }
                     //check labels
                     const labelsNodes = card.node.content.labels.nodes;
                     if (labelsNodes) {
