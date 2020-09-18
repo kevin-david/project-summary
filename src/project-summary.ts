@@ -133,9 +133,9 @@ async function parseResponse(response: any): Promise<IssueInfo[]> {
   await response.organization.project.columns.nodes.forEach(function (columnNode: any) {
     columnNode.cards.edges.forEach(function (card: any) {
       // card level
-      if (card.node.content != null && card.node.content.state != 'CLOSED') {
+      if (!!card.node.content && card.node.content.state != 'CLOSED') {
 
-        console.log(`Processing card: ${card.node.content.url} / /${card.node.content.title}`);
+        console.log(`Processing card: ${card.node.content.url} | ${card.node.content.title}`);
 
         var issue: IssueInfo = {
           title: card.node.content.title,

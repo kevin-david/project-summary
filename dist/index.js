@@ -3712,8 +3712,8 @@ function parseResponse(response) {
         yield response.organization.project.columns.nodes.forEach(function (columnNode) {
             columnNode.cards.edges.forEach(function (card) {
                 // card level
-                if (card.node.content != null && card.node.content.state != 'CLOSED') {
-                    console.log(`Processing card: ${card.node.content.url} / /${card.node.content.title}`);
+                if (!!card.node.content && card.node.content.state != 'CLOSED') {
+                    console.log(`Processing card: ${card.node.content.url} | ${card.node.content.title}`);
                     var issue = {
                         title: card.node.content.title,
                         url: card.node.content.url,
